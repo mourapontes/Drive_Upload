@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://apis.google.com https://www.gstatic.com https://accounts.google.com 'unsafe-inline'; object-src 'self'; connect-src 'self' https://accounts.google.com https://www.googleapis.com;">
+    <title>Drive Upload - Envie documentos para o Google Drive</title>
+    <!-- Google Fonts e Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Link para o CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <span class="material-icons">cloud_upload</span>
+                <h1>Drive Upload</h1>
+            </div>
+            <div id="user-info" class="user-info" style="display: none;">
+                <img id="user-pic" class="user-pic" src="" alt="User">
+                <span id="user-name" class="user-name"></span>
+                <button id="signout_button" class="signout-btn" title="Sair" onclick="handleSignoutClick()">
+                    <span class="material-icons">logout</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="upload-card">
+                <div id="auth-section" class="auth-section">
+                    <h2>Autentique-se para enviar e gerenciar seus documentos.</h2>
+                    <button id="authorize_button" style="visibility: hidden;" onclick="handleAuthClick()">Authorize</button>
+                    <button id="signout_button" style="visibility: hidden;" onclick="handleSignoutClick()">Sign Out</button>
+                </div>
+                <pre id="content" style="white-space: pre-wrap;"></pre>
+
+                <div id="upload-section" class="upload-section" style="display: none;">
+                    <div class="drop-zone" id="drop-zone">
+                        <span class="material-icons large-icon">cloud_upload</span>
+                        <h3>Arraste seus arquivos aqui</h3>
+                        <p>ou</p>
+                        <label for="file-input" class="file-select-btn">
+                            Selecione os arquivos
+                        </label>
+                        <input type="file" id="file-input" multiple style="display: none;">
+                        <p class="file-types">PDF, DOCX, XLSX, PPTX, JPG, PNG, TXT, etc.</p>
+                    </div>
+
+                    <div id="file-list" class="file-list">
+                        <p class="empty-list-message" style="text-align: center; color: var(--gray-dark);">Nenhum arquivo selecionado</p>
+                    </div>
+
+                    <div id="upload-progress" class="upload-progress" style="display: none;">
+                        <div class="progress-bar-container">
+                            <div id="progress-bar" class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                        <span id="progress-text" class="progress-text">0%</span>
+                    </div>
+
+                    <button id="upload-button" class="upload-btn" disabled>
+                        <span class="material-icons">file_upload</span>
+                        Enviar para Drive
+                    </button>
+
+                    <!-- Nova seção para exibir os arquivos enviados -->
+                    <div id="uploaded-files-section" class="uploaded-files-section">
+                        <h3>Arquivos Enviados</h3>
+                        <ul id="uploaded-files-list" class="uploaded-files-list">
+                            <p class="empty-uploaded-message" style="text-align: center; color: var(--gray-dark);">Nenhum arquivo enviado ainda</p>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="status-message" class="status-message"></div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>© 2025 Drive Upload - Simples upload para Google Drive</p>
+        </footer>
+    </div>
+
+    <!-- Google API Library -->
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    <script src="app.js"></script>
+</body>
+</html>
